@@ -2,7 +2,7 @@
  * @file Sets up a rich text editor and handles text editing.
  * @author Raj Kane
  * @author Jon Lee
- * @author Henry Gaskin
+ * @author Ninja Gaskin
  * @author Anshul Nanda
  */
 
