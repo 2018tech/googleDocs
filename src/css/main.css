@@ -1,0 +1,20 @@
+h2 {
+  color: blue;
+}
+
+.editor {
+  min-height: 300px;
+  padding: 10px;
+  border: solid 2px black;
+}
+
+.toolbar {
+
+}
+
+.superFancyBlockquote {
+  color: #999;
+  font-family: 'Hoefler Text', Georgia, serif;
+  font-style: italic;
+  text-align: center;
+}
