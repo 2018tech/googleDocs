@@ -66,15 +66,21 @@ app.use(function(err, req, res, next) {
   });
 });
 
-// POST register page
-app.post('/register', function(req, res) {
-  new User( {
-    username: req.body.username,
-    password: req.body.password,
-    documentList: []
-  }).save()
-    .then()
-    .catch()
+// Create new document
+app.post('/create', function(req, res) {
+  new Document({
+    documentName: req.body.documentName, //in the form's input, need to put its name as documentName
+    owner: req.user,
+    content: '',
+    collaborators: []
+  }).save(function(err, doc) {
+    if (err) {
+      console.log(err);
+      res.status(500).json({err: err.message});
+      return;
+    }
+    res.status(200).json({success: true});
+  })
 })
 
 // GET request to Documents List
@@ -88,12 +94,14 @@ app.get('/document', function(req, res) {
 
 // GET request for individual document from documents list (by doc:id)
 app.get('/document/:id', function(req, res) {
-  Document.findById(req.params.id)
+  Document.findById(req.params.id, (err, doc) => {
+    if (err) res.status(500).end(err.message)
+    else res.json(doc)
+  });
+});
 
-})
-
-// POST request for saving a document
-app.post('')
+// // POST request for saving a document
+// app.post('')
 
 app.listen(process.env.PORT || 3000)
 module.exports = app;

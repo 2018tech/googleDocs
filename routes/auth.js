@@ -1,3 +1,6 @@
+/*
+ * @file Handles registration and login routes, and passport authentication.
+ */
 var express = require('express');
 var router = express.Router();
 var models = require('../models/models');
@@ -41,7 +44,6 @@ module.exports = function(passport) {
   ));
   router.post('/register', function(req, res) {
     // validation step
-
     var u = new models.User({
       username: req.body.username,
       password: req.body.password,
@@ -67,20 +69,6 @@ module.exports = function(passport) {
     })(req, res, next)
 
   })
-
-  // GET request to Documents List
-
-
-  // POST register page
-
-
-  // GET request for individual document from documents list (by doc:id)
-
-
-
-
-
-  // POST request for saving a document
 
 
   // GET Logout page

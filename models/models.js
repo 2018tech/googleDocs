@@ -11,7 +11,7 @@ var documentSchema = mongoose.Schema({
   documentName: String,
   owner: {type: mongoose.Schema.ObjectId, ref: 'User'},
   content: String,
-  listofcollabo: [{type: mongoose.Schema.ObjectId, ref: 'User'}]
+  collaborators: [{type: mongoose.Schema.ObjectId, ref: 'User'}]
 });
 
 module.exports = {
