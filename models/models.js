@@ -12,9 +12,7 @@ var documentSchema = mongoose.Schema({
   owner: {type: mongoose.Schema.ObjectId, ref: 'User'},
   content: String,
   listofcollabo: [{type: mongoose.Schema.ObjectId, ref: 'User'}]
-})
-
-
+});
 
 module.exports = {
   User: mongoose.model('User', userSchema),

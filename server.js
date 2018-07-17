@@ -8,7 +8,8 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local');
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI);
-
+var auth = require("./routes/auth");
+var api = require("./routes/api");
 
 var User = require('./models/models').User;
 // var routes = require('./routes/index');
@@ -16,55 +17,23 @@ var auth = require('./routes/auth');
 
 var app = express();
 
+
 // view engine setup
-
-
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ secret: 'keyboard cat' }));
-
-passport.serializeUser(function(user, done) {
-  done(null, user._id);
-});
-
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    done(err, user);
-  });
-});
-
-// passport strategy
-passport.use(new LocalStrategy(function(username, password, done) {
-  // Find the user with the given username
-    User.findOne({ username: username }, function (err, user) {
-      // if there's an error, finish trying to authenticate (auth failed)
-      if (err) {
-        console.log(err);
-        return done(err);
-      }
-      // if no user present, auth failed
-      if (!user) {
-        console.log(user);
-        return done(null, false, { message: 'Incorrect username.' });
-      }
-      // if passwords do not match, auth failed
-      if (user.password !== password) {
-        return done(null, false, { message: 'Incorrect password.' });
-      }
-      // auth has has succeeded
-      return done(null, user);
-    });
-  }
-));
-
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(auth(passport))
+app.use(api)
+
+
 
 // app.use('/', routes(passport));
-app.use('/', auth(passport));
+// app.use('/', auth(passport));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -97,5 +66,34 @@ app.use(function(err, req, res, next) {
   });
 });
 
+// POST register page
+app.post('/register', function(req, res) {
+  new User( {
+    username: req.body.username,
+    password: req.body.password,
+    documentList: []
+  }).save()
+    .then()
+    .catch()
+})
 
+// GET request to Documents List
+app.get('/document', function(req, res) {
+  Document.find({}, (err, doc) => {
+    if (err) res.status(500).end(err.message)
+    else res.json(doc)
+  });
+});
+
+
+// GET request for individual document from documents list (by doc:id)
+app.get('/document/:id', function(req, res) {
+  Document.findById(req.params.id)
+
+})
+
+// POST request for saving a document
+app.post('')
+
+app.listen(process.env.PORT || 3000)
 module.exports = app;
