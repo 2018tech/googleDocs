@@ -7,22 +7,17 @@ var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local');
 var mongoose = require('mongoose');
-
 mongoose.connect(process.env.MONGODB_URI);
 
 
 var User = require('./models/models').User;
-
-
-
-var routes = require('./routes/index');
+// var routes = require('./routes/index');
 var auth = require('./routes/auth');
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -68,7 +63,7 @@ passport.use(new LocalStrategy(function(username, password, done) {
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', routes(passport));
+// app.use('/', routes(passport));
 app.use('/', auth(passport));
 
 // catch 404 and forward to error handler
