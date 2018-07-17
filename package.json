@@ -48,12 +48,19 @@
   },
   "dependencies": {
     "draft-js": "^0.10.5",
+    "draft-js-color-picker": "^1.0.2",
     "electron-compile": "^6.4.3",
     "electron-devtools-installer": "^2.2.4",
     "electron-squirrel-startup": "^1.0.0",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "material-ui": "^0.20.1",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
-    "react-hot-loader": "^3.1.3"
+    "react-hot-loader": "^3.1.3",
+    "socket.io-client": "^2.1.1"
   },
   "devDependencies": {
     "babel-plugin-transform-async-to-generator": "^6.24.1",
@@ -66,6 +73,7 @@
     "eslint-config-airbnb": "^15.1.0",
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-react": "^7.10.0"
+    "eslint-plugin-react": "^7.10.0",
+    "socket.io": "^2.1.1"
   }
 }
