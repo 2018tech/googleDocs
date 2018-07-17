@@ -8,6 +8,8 @@
 
 import React from 'react';
 import Document from './document.js';
+import Home from './home.js';
+import Page2 from './page2.js';
 
 export default class App extends React.Component {
   /*
@@ -15,7 +17,7 @@ export default class App extends React.Component {
    */
   constructor(props) {
     super(props);
-    this.state = {currentPage: "Document"};
+    this.state = {currentPage: "Home"};
     this.redirect = this.redirect.bind(this);
   };
 
@@ -29,7 +31,11 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        {this.state.currentPage === "Document" ? <Document /> : null}
+
+        {this.state.currentPage === 'Home' ? <Home redirect={this.redirect}/>: null}
+        {this.state.currentPage === "Document" ? <Document redirect={this.redirect}/> : null}
+        {this.state.currentPage === 'Page2' ? <Page2 redirect={this.redirect}/> : null}
+
       </div>
     );
   }

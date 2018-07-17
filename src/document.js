@@ -9,6 +9,7 @@
 import React from 'react';
 import {Editor, EditorState, RichUtils} from 'draft-js';
 import ColorPicker, {colorPickerPlugin} from 'draft-js-color-picker';
+import HomeBar from './homebar.js';
 
 const styleMap = {
   'UPPERCASE': {
@@ -75,6 +76,7 @@ export default class Document extends React.Component {
     const {editorState} = this.state;
     return(
       <div>
+        <HomeBar redirect={this.props.redirect}/>
         <h2>Document Editor</h2>
         <div className="editor">
           <div className="toolbar">
