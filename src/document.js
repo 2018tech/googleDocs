@@ -11,6 +11,9 @@ import {Editor, EditorState, RichUtils} from 'draft-js';
 import ColorPicker, {colorPickerPlugin} from 'draft-js-color-picker';
 import HomeBar from './homebar.js';
 
+
+
+
 const styleMap = {
   'UPPERCASE': {
     textTransform: 'uppercase'
@@ -45,7 +48,7 @@ export default class Document extends React.Component {
   constructor(props) {
     super(props);
     this.state = {editorState: EditorState.createEmpty()};
-    this.onChange = (editorState) => this.setState({editorState})
+    this.onChange = (editorState) => this.setState({editorState});
     this.getEditorState = () => this.state.editorState;
     this.picker = colorPickerPlugin(this.onChange, this.getEditorState);
   };
@@ -75,21 +78,21 @@ export default class Document extends React.Component {
   render() {
     const {editorState} = this.state;
     return(
-      <div>
+
+      <div className="entire">
+
         <HomeBar redirect={this.props.redirect}/>
-        <h2>Document Editor</h2>
+        <h2 className="documenteditor">Document Title</h2>
         <div className="editor">
           <div className="toolbar">
-            <button onMouseDown={(e) => this.toggleInlineStyle(e, 'BOLD')}>B</button>
-            <button onMouseDown={(e) => this.toggleInlineStyle(e, 'ITALIC')}>I</button>
-            <button onMouseDown={(e) => this.toggleInlineStyle(e, 'UNDERLINE')}>U</button>
-            <button onMouseDown={(e) => this.toggleInlineStyle(e, 'STRIKETHROUGH')}>S</button>
+            <button onMouseDown={(e) => this.toggleInlineStyle(e, 'BOLD')}><i className="material-icons">format_bold</i></button>
+            <button onMouseDown={(e) => this.toggleInlineStyle(e, 'ITALIC')}><i className="material-icons">format_italic</i></button>
+            <button onMouseDown={(e) => this.toggleInlineStyle(e, 'UNDERLINE')}><i className="material-icons">format_underline</i></button>
+            <button onMouseDown={(e) => this.toggleInlineStyle(e, 'STRIKETHROUGH')}><i className="material-icons">format_strikethrough</i></button>
+            <button onMouseDown={(e) => this.toggleInlineStyle(e, 'UPPERCASE')}><i className="material-icons">format_size</i></button>
 
-            <button onMouseDown={(e) => this.toggleInlineStyle(e, 'UPPERCASE')}>ABC</button>
-            <button onMouseDown={(e) => this.toggleInlineStyle(e, 'LOWERCASE')}>abc</button>
-
-            <button onMouseDown={(e) => this.toggleBlockType(e, 'unordered-list-item')}>Unordered List</button>
-            <button onMouseDown={(e) => this.toggleBlockType(e, 'ordered-list-item')}>Ordered List</button>
+            <button onMouseDown={(e) => this.toggleBlockType(e, 'unordered-list-item')}><i className="material-icons">format_list_bulleted</i></button>
+            <button onMouseDown={(e) => this.toggleBlockType(e, 'ordered-list-item')}><i className="material-icons">format_list_numbered</i></button>
 
             <button onMouseDown={(e) => this.toggleBlockType(e, 'header-one')}>h1</button>
             <button onMouseDown={(e) => this.toggleBlockType(e, 'header-two')}>h2</button>
@@ -102,16 +105,19 @@ export default class Document extends React.Component {
               presetColors={presetColors}
               color={this.picker.currentColor(this.state.editorState)}
             />
-            <button onMouseDown={this.picker.removeColor}>Clear color</button>
-          </div>
 
+            <button onMouseDown={this.picker.removeColor}><i className="material-icons">format_color_reset</i></button>
+          </div>
+        <div className="editorbox">
           <Editor editorState={editorState}
             onChange={this.onChange}
             customStyleMap={styleMap}
             customStyleFn={this.picker.customStyleFn}
           />
         </div>
+        </div>
       </div>
+
     );
   };
 };

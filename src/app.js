@@ -11,6 +11,7 @@ import Document from './document.js';
 import Home from './home.js';
 import Page2 from './page2.js';
 
+
 export default class App extends React.Component {
   /*
    * @class Represents the desktop application.
