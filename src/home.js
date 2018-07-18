@@ -19,14 +19,19 @@ export default class Home extends React.Component {
       <div className="filestable">
         <Panel bsStyle="info">
       <Panel.Heading>
-        <Panel.Title componentClass="h3">folders</Panel.Title>
+        <Panel.Title componentClass="h3">folders
+          <div className="docbuttons">
+          <button>create new doc</button>
+          <button>add existing doc</button>
+          </div>
+        </Panel.Title>
       </Panel.Heading>
-      <Panel.Body>Panel content</Panel.Body>
-      <Panel.Body>Panel content</Panel.Body>
-      <Panel.Body>Panel content</Panel.Body>
-      <Panel.Body>Panel content</Panel.Body>
-      <Panel.Body>Panel content</Panel.Body>
-      <Panel.Body>Panel content</Panel.Body>
+      <Panel.Body>File1.doc</Panel.Body>
+      <Panel.Body>File2.doc</Panel.Body>
+      <Panel.Body>File3.doc</Panel.Body>
+      <Panel.Body>File4.doc</Panel.Body>
+      <Panel.Body>File5.doc</Panel.Body>
+      <Panel.Body>File6.doc</Panel.Body>
     </Panel>
 </div>
       </div>
