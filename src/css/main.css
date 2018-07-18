@@ -1,14 +1,45 @@
-h2 {
-  color: blue;
+.documenteditor {
+  text-align: left;
+  display: flex;
+
+  padding-left: 100px;
+
+}
+.home {
+  background-color: blue;
+  color: white;
+  text-align: center;
+
+}
+.homebar {
+  text-align: center;
+}
+.material-icons {
+align-self: center;
+}
+.homeimage {
+height: 20px;
+padding-right: 10px;
 }
 
 .editor {
-  min-height: 300px;
-  padding: 10px;
-  border: solid 2px black;
+
+}
+.editorbox {
+  background-color: white;
+  max-width: 80%;
+  margin: auto;
+  min-height: 500px;
+  padding: 10px 10px 10px;
+  margin-top: 10px;
 }
 
 .toolbar {
+  display: flex;
+  justify-content: center;
+
+}
+.colorpicker {
 
 }
 
@@ -17,4 +48,11 @@ h2 {
   font-family: 'Hoefler Text', Georgia, serif;
   font-style: italic;
   text-align: center;
+}
+
+.entire {
+padding-bottom: 20px;
+
+
+
 }
