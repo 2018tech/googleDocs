@@ -104,10 +104,12 @@ app.get('/document/:id', function(req, res) {
   });
 });
 
-// // POST request for saving a document
+// saving and editing the document's content
 app.post('/save', function(req, res){
-  
-})
+Document.update({ _id: id }, { $set: { content: 'updated' }}, (err, result) => {
+  if (err) res.status(500).end(err.message)
+  else res.json(result)
+});
 
 
 app.listen(process.env.PORT || 3000)
