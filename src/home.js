@@ -5,6 +5,7 @@
 
 import React from 'react';
 import HomeBar from './homebar.js';
+import {Panel} from 'react-bootstrap';
 
 export default class Home extends React.Component {
   constructor (props) {
@@ -12,7 +13,23 @@ export default class Home extends React.Component {
   }
   render() {
     return (
+      <div className="filespage">
       <HomeBar redirect={this.props.redirect} />
+      <h2 className="documenteditor">Files</h2>
+      <div className="filestable">
+        <Panel bsStyle="info">
+      <Panel.Heading>
+        <Panel.Title componentClass="h3">folders</Panel.Title>
+      </Panel.Heading>
+      <Panel.Body>Panel content</Panel.Body>
+      <Panel.Body>Panel content</Panel.Body>
+      <Panel.Body>Panel content</Panel.Body>
+      <Panel.Body>Panel content</Panel.Body>
+      <Panel.Body>Panel content</Panel.Body>
+      <Panel.Body>Panel content</Panel.Body>
+    </Panel>
+</div>
+      </div>
     );
   }
 }
