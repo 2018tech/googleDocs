@@ -10,6 +10,8 @@ import React from 'react';
 import Document from './document.js';
 import Home from './home.js';
 import Page2 from './page2.js';
+import Login from './login.js';
+import Register from './register.js';
 
 
 export default class App extends React.Component {
@@ -36,6 +38,8 @@ export default class App extends React.Component {
         {this.state.currentPage === 'Home' ? <Home redirect={this.redirect}/>: null}
         {this.state.currentPage === "Document" ? <Document redirect={this.redirect}/> : null}
         {this.state.currentPage === 'Page2' ? <Page2 redirect={this.redirect}/> : null}
+        {this.state.currentPage === 'Login' ? <Login redirect={this.redirect}/> : null}
+        {this.state.currentPage === 'Register' ? <Register redirect={this.redirect}/> : null}
 
       </div>
     );

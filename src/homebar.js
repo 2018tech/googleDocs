@@ -23,6 +23,8 @@ export default class HomeBar extends React.Component {
       </Navbar>
 
         <div className="homebar">
+          <button onClick={() => this.props.redirect('Register')}>Register</button>
+          <button onClick={() => this.props.redirect('Login')}>Login</button>
           <button className="homebarhome" onClick={() => this.props.redirect('Home')}>Folders</button>
           <button onClick={() => this.props.redirect('Document')}>Document</button>
         </div>

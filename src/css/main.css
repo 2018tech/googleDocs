@@ -2,8 +2,29 @@
   text-align: left;
   display: flex;
 
+
   padding-left: 100px;
 
+}
+.formbox{
+  display: flex;
+  justify-content: center;
+  
+}
+.loginform{
+  background-color: white;
+  margin: auto;
+  max-width: 80%;
+  min-height: 500px;
+}
+.logintext{
+  text-align: center;
+}
+.filestable {
+  background-color: white;
+  margin: auto;
+  max-width: 80%;
+  min-height: 500px;
 }
 .home {
   background-color: blue;
