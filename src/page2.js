@@ -8,7 +8,7 @@ export default class Page2 extends React.Component {
     return (
     <div>
       <h1 className='page2'>About</h1>
-      
+
     </div>);
   }
 }

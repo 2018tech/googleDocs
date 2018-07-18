@@ -1,37 +1,41 @@
+/**
+ * @file Sets up a collaborative rich-text editing desktop application with Electron.
+ * @author Raj Kane
+ * @author Jon Lee
+ * @author Henry Gaskin
+ * @author Anshul Nanda
+ */
+
 import React from 'react';
-import {Editor, EditorState, RichUtils, convertToRaw} from 'draft-js';
+import Document from './document.js';
+import Home from './home.js';
+import Page2 from './page2.js';
 
 export default class App extends React.Component {
-
-  constructor(props){
+  /*
+   * @class Represents the desktop application.
+   */
+  constructor(props) {
     super(props);
-    this.state ={
-      editorState: EditorState.createEmpty()};
-    }
+    this.state = {currentPage: "Home"};
+    this.redirect = this.redirect.bind(this);
+  };
 
-    onChange(editorState) {
-      this.setState({editorState});
-    }
+  redirect(page) {
+    /* Redirect the application to a specified page.
+     * @param page - A page to which the application is to redirect.
+     */
+    this.setState({currentPage: page})
+  }
 
-    makeBold(){
-      this.onChange(RichUtils.toggleInlineStyle(
-        this.state.editorState,
-        'BOLD'
-      ));
-    }
+  render() {
+    return (
+      <div>
 
-    render() {
-      // const raw = convertToRaw(this.state.editorState.getCurrentContent());
-      return <div>
-        <button onClick={() => {this.makeBold();}}>Bold</button>
-        <Editor
-          onChange={(editorState) => {this.onChange(editorState)}}
-          editorState={this.state.editorState}
-        />
-        {/* <div>
-          {JSON.stringify(raw)}
-        </div> */}
-        {/* above is for raw data  */}
-      </div>;
-    }
+        {this.state.currentPage === 'Home' ? <Home redirect={this.redirect}/>: null}
+        {this.state.currentPage === "Document" ? <Document redirect={this.redirect}/> : null}
+        {this.state.currentPage === 'Page2' ? <Page2 redirect={this.redirect}/> : null}
+
+      </div>
+    );
   }
