@@ -2,13 +2,14 @@
  * @file Sets up a rich text editor and handles text editing.
  * @author Raj Kane
  * @author Jon Lee
- * @author Henry Gaskin
+ * @author Ninja Gaskin
  * @author Anshul Nanda
  */
 
 import React from 'react';
 import {Editor, EditorState, RichUtils} from 'draft-js';
 import ColorPicker, {colorPickerPlugin} from 'draft-js-color-picker';
+import HomeBar from './homebar.js';
 
 const styleMap = {
   'UPPERCASE': {
@@ -75,6 +76,7 @@ export default class Document extends React.Component {
     const {editorState} = this.state;
     return(
       <div>
+        <HomeBar redirect={this.props.redirect}/>
         <h2>Document Editor</h2>
         <div className="editor">
           <div className="toolbar">
