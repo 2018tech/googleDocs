@@ -17,12 +17,9 @@ var api = require("./routes/api");
 
 var User = require('./models/models').User;
 // var routes = require('./routes/index');
-var auth = require('./routes/auth');
 
 var app = express();
 
-
-// view engine setup
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -46,7 +43,6 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-// error handlers
 
 // development error handler
 // will print stacktrace
@@ -64,7 +60,7 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
-  res.render('error', {
+  res.json({
     message: err.message,
     error: {}
   });
@@ -109,6 +105,7 @@ app.post('/save', function(req, res){
 Document.update({ _id: id }, { $set: { content: 'updated' }}, (err, result) => {
   if (err) res.status(500).end(err.message)
   else res.json(result)
+})
 });
 
 
