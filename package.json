@@ -12,7 +12,8 @@
     "lint": "eslint --cache --color --ext .jsx,.js src",
     "backend-dev": "nodemon server.js --exec babel-node --presets es2015,stage-2",
     "backend-build": "babel server -d server-dist --presets es2015,stage-2",
-    "backend-serve": "node server-dist/index.js"
+    "backend-serve": "node server-dist/index.js",
+    "dev": "npm run backend-dev && npm run start"
   },
   "keywords": [],
   "author": "Student",

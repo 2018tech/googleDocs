@@ -58,7 +58,7 @@ export default class HomeBar extends React.Component {
           <button onClick={() => this.props.redirect('Login')}>Login</button>
           <button className="homebarhome" onClick={() => this.props.redirect('Home')}>Folders</button>
           <button onClick={() => this.props.redirect('Document')}>Document</button>
-
+          {/* <button onClick={() =>this.props.redirect()} */}
         </div>
       </div>
     )
