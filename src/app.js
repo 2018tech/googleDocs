@@ -38,8 +38,8 @@ export default class App extends React.Component {
         {this.state.currentPage === 'Home' ? <Home redirect={this.redirect}/>: null}
         {this.state.currentPage === "Document" ? <Document redirect={this.redirect}/> : null}
         {this.state.currentPage === 'Page2' ? <Page2 redirect={this.redirect}/> : null}
-        {this.state.currentPage === 'Login' ? <Login redirect={this.redirect}/> : null}
-        {this.state.currentPage === 'Register' ? <Register redirect={this.redirect}/> : null}
+        {this.state.currentPage === 'Login' ? <Login redirect={this.redirect} app={this}/> : null}
+        {this.state.currentPage === 'Register' ? <Register redirect={this.redirect} app={this}/> : null}
 
       </div>
     );
