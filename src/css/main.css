@@ -6,10 +6,13 @@
   padding-left: 100px;
 
 }
+.docbuttons{
+  text-align: right;
+}
 .formbox{
   display: flex;
   justify-content: center;
-  
+
 }
 .loginform{
   background-color: white;

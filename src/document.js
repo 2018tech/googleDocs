@@ -7,12 +7,9 @@
  */
 
 import React from 'react';
-import {Editor, EditorState, RichUtils} from 'draft-js';
+import {Editor, EditorState, RichUtils, convertFromRaw, convertToRaw} from 'draft-js';
 import ColorPicker, {colorPickerPlugin} from 'draft-js-color-picker';
 import HomeBar from './homebar.js';
-
-
-
 
 const styleMap = {
   'UPPERCASE': {
@@ -43,20 +40,25 @@ const presetColors = [
 
 export default class Document extends React.Component {
   /**
-   * @class Represents the rich text editor.
+   * @class Document - Represents the rich text editor.
   */
   constructor(props) {
     super(props);
-    this.state = {editorState: EditorState.createEmpty()};
+    console.log(props);
+    this.state = {
+      documentName: props.options.doc.title
+    };
     this.onChange = (editorState) => this.setState({editorState});
+    if(props.options.doc.content === '') this.state.editorState = EditorState.createEmpty();
+    else this.state.editorstate = EditorState.createWithContent(convertFromRaw(JSON.parse(props.options.doc.content)));
     this.getEditorState = () => this.state.editorState;
     this.picker = colorPickerPlugin(this.onChange, this.getEditorState);
   };
 
   toggleInlineStyle(e, inlineStyle) {
     /**
-     * Toggle a selected text's inline style, which can be bold, italic, underline,
-     * strikethrough, or case.
+     * @function toggleInlineStyle - Toggle a selected text's inline style, which
+     * can be bold, italic, underline, strikethrough, or case.
      * @param e - An onMouseDown event.
      * @param inlineStyle - The selected text's inline style.
      */
@@ -66,13 +68,40 @@ export default class Document extends React.Component {
 
   toggleBlockType(e, blockType) {
     /**
-     * Toggle a selected text's block type, which can be unordered or ordered
-     * list, or header size.
+     * @function toggleBlockStyle - Toggle a selected text's block type, which
+     * can be unordered or ordered list, or header size.
      * @param e - An onMouseDown event.
      * @param blockType - The selected text's block type.
      */
     e.preventDefault();
     this.onChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
+  };
+
+  setDocumentName(e) {
+    this.setState({documentName: e.target.value});
+  };
+
+  save(e) {
+    fetch('http:localhost:3000/save', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'same-origin',
+      body: JSON.stringify({
+        newContent: JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent())),
+        id: this.props.options.doc._id
+      })
+    }).then(res => res.json())
+      .then(res => {
+        console.log(res)
+        if(res.success) {
+            alert('saved')
+        } else {
+            alert('error in saving')
+        }
+      })
+        .catch(err => console.log('Error ', err));
   };
 
   render() {
@@ -82,7 +111,9 @@ export default class Document extends React.Component {
       <div className="entire">
 
         <HomeBar redirect={this.props.redirect}/>
+        <input onChange={e => this.setDocumentName(e)} value={this.state.documentName}/>
         <h2 className="documenteditor">Document Title</h2>
+        <button onClick={e => this.save(e)}>Save</button>
         <div className="editor">
           <div className="toolbar">
             <button onMouseDown={(e) => this.toggleInlineStyle(e, 'BOLD')}><i className="material-icons">format_bold</i></button>

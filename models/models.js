@@ -1,17 +1,18 @@
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI);
 
-var userSchema = mongoose.Schema({
+var userSchema = new mongoose.Schema({
   username: String,
   password: String,
   documentList: [{type: mongoose.Schema.ObjectId, ref: 'Document'}]
 });
 
-var documentSchema = mongoose.Schema({
+var documentSchema = new mongoose.Schema({
   documentName: String,
   owner: {type: mongoose.Schema.ObjectId, ref: 'User'},
   content: String,
-  collaborators: [{type: mongoose.Schema.ObjectId, ref: 'User'}]
+  collaborators: [{type: mongoose.Schema.ObjectId, ref: 'User'}],
+  password: String
 });
 
 module.exports = {
