@@ -20,10 +20,10 @@ export default class App extends React.Component {
    */
   constructor(props) {
     super(props);
-    this.state = {currentPage: "Home"};
+    this.state = {currentPage: "Login"};
     this.redirect = this.redirect.bind(this);
   };
-
+//page is like 'Home'
   redirect(page, options) {
     /** Redirect the application to a specified page.
      * @param page - A page to which the application is to redirect.
@@ -41,7 +41,6 @@ export default class App extends React.Component {
         {this.state.currentPage === 'Login' ? <Login redirect={this.redirect} app={this}/> : null}
         {this.state.currentPage === 'Register' ? <Register redirect={this.redirect} app={this}/> : null}
         {this.state.currentPage === 'CreateDocument' ? <CreateDocument redirect={this.redirect} app={this}/> : null}
-
 
       </div>
     );

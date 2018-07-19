@@ -10,6 +10,13 @@ import React from 'react';
 import {Navbar} from 'react-bootstrap';
 
 export default class HomeBar extends React.Component {
+  // constructor (props) {
+  //   super(props);
+  //   this.state ={
+  //     username: '',
+  //   }
+  // }
+
   onLogout(e) {
     console.log('onclick')
     fetch('http://localhost:3000/logout', {
@@ -33,6 +40,31 @@ export default class HomeBar extends React.Component {
         .catch(err => console.log('Error ', err));
   }
 
+  // componentDidMount() {
+  //   fetch('http://localhost:3000/login', {
+  //     method: 'GET',
+  //     credentials: 'same-origin',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //   })
+  //     .then(res => {
+  //       switch(res.status) {
+  //         case 200:
+  //         console.log(res)
+  //           this.setState({
+  //             username: res.body.username
+  //           })
+  //           break;
+  //         default:
+  //           console.log(res.status);
+  //       }
+  //     })
+  //       .catch(err => console.log('Error ', err));
+  // }
+
+
+
   render() {
     return(
 
@@ -47,7 +79,7 @@ export default class HomeBar extends React.Component {
       </Navbar.Header>
       <Navbar.Collapse>
       <Navbar.Text>
-        Signed in as: <Navbar.Link href="/">Henry Gaskin</Navbar.Link>
+        Signed in as: <Navbar.Link href="/">henrygaskin</Navbar.Link>
       </Navbar.Text>
       <Navbar.Text pullRight> <button onClick={e => this.onLogout(e)} >Log Out</button></Navbar.Text>
       </Navbar.Collapse>

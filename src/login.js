@@ -61,7 +61,7 @@ export default class Login extends React.Component {
   render() {
     return (
   <div className="filespage">
-    <HomeBar redirect={this.props.redirect}/>
+    <HomeBar redirect={this.props.redirect} />
     <h2 className="documenteditor">Login</h2>
     <div className='formbox'>
       <form>
