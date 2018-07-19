@@ -1,6 +1,9 @@
-
 /**
- * @file handles routes for opening/saving/editing documents
+ * @file handles routes for opening/saving/editing documents, and passport authentication.
+ * @author Raj Kane
+ * @author Jon Lee
+ * @author Henry Gaskin
+ * @author Anshul Nanda
  */
 var express = require('express');
 var path = require('path');

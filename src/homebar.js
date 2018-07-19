@@ -1,7 +1,38 @@
+/**
+ * @file Sets up a navigation bar inking to the other React files.
+ * @author Raj Kane
+ * @author Jon Lee
+ * @author Henry Gaskin
+ * @author Anshul Nanda
+ */
+
 import React from 'react';
 import {Navbar} from 'react-bootstrap';
 
 export default class HomeBar extends React.Component {
+  onLogout(e) {
+    console.log('onclick')
+    fetch('http://localhost:3000/logout', {
+      method: 'GET',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+      .then(res => {
+        switch(res.status) {
+          case 200:
+            console.log(res);
+            console.log('User logged out');
+            this.props.redirect("Login")
+            break;
+          default:
+            console.log(res.status);
+        }
+      })
+        .catch(err => console.log('Error ', err));
+  }
+
   render() {
     return(
 
@@ -18,7 +49,7 @@ export default class HomeBar extends React.Component {
       <Navbar.Text>
         Signed in as: <Navbar.Link href="/">Henry Gaskin</Navbar.Link>
       </Navbar.Text>
-      <Navbar.Text pullRight> <a href="/" >Log Out</a></Navbar.Text>
+      <Navbar.Text pullRight> <button onClick={e => this.onLogout(e)} >Log Out</button></Navbar.Text>
       </Navbar.Collapse>
       </Navbar>
 
@@ -27,6 +58,7 @@ export default class HomeBar extends React.Component {
           <button onClick={() => this.props.redirect('Login')}>Login</button>
           <button className="homebarhome" onClick={() => this.props.redirect('Home')}>Folders</button>
           <button onClick={() => this.props.redirect('Document')}>Document</button>
+
         </div>
       </div>
     )

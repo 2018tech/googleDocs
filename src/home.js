@@ -1,6 +1,10 @@
 /**
  * @file Sets up the home page of the app after successful login. Displays
  * a list of all documents owned by the user.
+ * @author Raj Kane
+ * @author Jon Lee
+ * @author Henry Gaskin
+ * @author Anshul Nanda
  */
 
 import React from 'react';
@@ -21,7 +25,7 @@ export default class Home extends React.Component {
       <Panel.Heading>
         <Panel.Title componentClass="h3">folders
           <div className="docbuttons">
-          <button>create new doc</button>
+          <button onMouseDown={() => this.props.redirect('Document')}>Create doc</button>
           <button>add existing doc</button>
           </div>
         </Panel.Title>

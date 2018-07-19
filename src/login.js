@@ -1,3 +1,11 @@
+/**
+ * @file Sets up a login page.
+ * @author Raj Kane
+ * @author Jon Lee
+ * @author Henry Gaskin
+ * @author Anshul Nanda
+ */
+
 import React from 'react';
 import HomeBar from './homebar.js';
 
@@ -29,6 +37,7 @@ export default class Login extends React.Component {
       headers: {
         'Content-Type': 'application/json'
       },
+      credentials: 'same-origin',
       body: JSON.stringify({
         username: this.state.username,
         password: this.state.password,
@@ -37,7 +46,6 @@ export default class Login extends React.Component {
       .then(res => {
         switch(res.status) {
           case 200:
-            // switch()
             console.log(res);
             console.log('User validated: ', this.state.username);
             this.props.app.setState({currentPage: "Home"})

@@ -11,9 +11,6 @@ import {Editor, EditorState, RichUtils} from 'draft-js';
 import ColorPicker, {colorPickerPlugin} from 'draft-js-color-picker';
 import HomeBar from './homebar.js';
 
-
-
-
 const styleMap = {
   'UPPERCASE': {
     textTransform: 'uppercase'
@@ -47,7 +44,10 @@ export default class Document extends React.Component {
   */
   constructor(props) {
     super(props);
-    this.state = {editorState: EditorState.createEmpty()};
+    this.state = {
+      editorState: EditorState.createEmpty(),
+      name: ''
+    };
     this.onChange = (editorState) => this.setState({editorState});
     this.getEditorState = () => this.state.editorState;
     this.picker = colorPickerPlugin(this.onChange, this.getEditorState);
@@ -55,8 +55,8 @@ export default class Document extends React.Component {
 
   toggleInlineStyle(e, inlineStyle) {
     /**
-     * Toggle a selected text's inline style, which can be bold, italic, underline,
-     * strikethrough, or case.
+     * @function toggleInlineStyle - Toggle a selected text's inline style, which
+     * can be bold, italic, underline, strikethrough, or case.
      * @param e - An onMouseDown event.
      * @param inlineStyle - The selected text's inline style.
      */
@@ -66,13 +66,17 @@ export default class Document extends React.Component {
 
   toggleBlockType(e, blockType) {
     /**
-     * Toggle a selected text's block type, which can be unordered or ordered
-     * list, or header size.
+     * @function toggleBlockStyle - Toggle a selected text's block type, which
+     * can be unordered or ordered list, or header size.
      * @param e - An onMouseDown event.
      * @param blockType - The selected text's block type.
      */
     e.preventDefault();
     this.onChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
+  };
+
+  setDocumentName(e) {
+    this.setState({name: e.target.value});
   };
 
   render() {
@@ -82,6 +86,7 @@ export default class Document extends React.Component {
       <div className="entire">
 
         <HomeBar redirect={this.props.redirect}/>
+        // <input onChange={e => this.setDocumentName(e)} />
         <h2 className="documenteditor">Document Title</h2>
         <div className="editor">
           <div className="toolbar">

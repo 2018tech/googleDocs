@@ -1,5 +1,5 @@
 /**
- * @file Sets up a collaborative rich-text editing desktop application with Electron.
+ * @file Top-level React file. Sets up a collaborative rich-text editing desktop application with Electron.
  * @author Raj Kane
  * @author Jon Lee
  * @author Henry Gaskin
@@ -15,7 +15,7 @@ import Register from './register.js';
 
 
 export default class App extends React.Component {
-  /*
+  /**
    * @class Represents the desktop application.
    */
   constructor(props) {
@@ -25,7 +25,7 @@ export default class App extends React.Component {
   };
 
   redirect(page) {
-    /* Redirect the application to a specified page.
+    /** Redirect the application to a specified page.
      * @param page - A page to which the application is to redirect.
      */
     this.setState({currentPage: page})
