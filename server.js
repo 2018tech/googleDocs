@@ -18,12 +18,19 @@ mongoose.connect(process.env.MONGODB_URI);
 var auth = require("./routes/auth");
 var api = require("./routes/api");
 
+import socketIO from 'socket.io';
+import http from 'http';
+import socketApi from './routes/socket';
+
 var User = require('./models/models').User;
 var Document = require('./models/models').Document;
 
 // var routes = require('./routes/index');
 
 var app = express();
+const server = http.Server(app);
+const io = socketIO(server);
+socketApi(io);
 
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -158,5 +165,5 @@ app.use(function(req, res, next) {
 });
 
 
-app.listen(process.env.PORT || 3000)
+server.listen(process.env.PORT || 3000)
 module.exports = app;

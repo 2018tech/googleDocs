@@ -10,6 +10,9 @@ import React from 'react';
 import {Editor, EditorState, RichUtils, convertFromRaw, convertToRaw} from 'draft-js';
 import ColorPicker, {colorPickerPlugin} from 'draft-js-color-picker';
 import HomeBar from './homebar.js';
+import io from 'socket.io-client';
+
+const socket = io('http://localhost:3000');
 
 const styleMap = {
   'UPPERCASE': {
@@ -48,11 +51,21 @@ export default class Document extends React.Component {
     this.state = {
       documentName: props.options.doc.title
     };
-    this.onChange = (editorState) => this.setState({editorState});
+    this.onChange = (editorState) => {
+      this.setState({editorState}, () => {
+        socket.emit('syncDocument', {
+          docId: this.props.options.doc._id,
+          rawState: convertToRaw(editorState.getCurrentContent())
+        })
+      });
+    }
     if(props.options.doc.content === '') this.state.editorState = EditorState.createEmpty();
-    else this.state.editorstate = EditorState.createWithContent(convertFromRaw(JSON.parse(props.options.doc.content)));
+    else {
+      this.state.editorState = EditorState.createWithContent(convertFromRaw(JSON.parse(props.options.doc.content)));
+    }
     this.getEditorState = () => this.state.editorState;
     this.picker = colorPickerPlugin(this.onChange, this.getEditorState);
+    this.remoteStateChange = this.remoteStateChange.bind(this);
   };
 
   toggleInlineStyle(e, inlineStyle) {
@@ -102,6 +115,17 @@ export default class Document extends React.Component {
         }
       })
         .catch(err => console.log('Error ', err));
+  };
+
+  remoteStateChange(res) {
+    debugger;
+    this.setState({editorState: EditorState.createWithContent(convertFromRaw(res.rawState))});
+  }
+
+  componentDidMount() {
+    socket.emit('openDocument', {docId: this.props.options.doc._id}, () => {
+      socket.on('syncDocument', this.remoteStateChange)
+    });
   };
 
   render() {
