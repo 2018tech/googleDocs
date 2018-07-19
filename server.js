@@ -19,6 +19,8 @@ var auth = require("./routes/auth");
 var api = require("./routes/api");
 
 var User = require('./models/models').User;
+var Document = require('./models/models').Document;
+
 // var routes = require('./routes/index');
 
 var app = express();
@@ -80,11 +82,6 @@ app.use(api)
 // app.use('/', auth(passport));
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
 
 
 // development error handler
@@ -115,22 +112,23 @@ app.post('/create', function(req, res) {
     documentName: req.body.documentName, //in the form's input, need to put its name as documentName
     owner: req.user,
     content: '',
-    collaborators: []
+    collaborators: [req.user],
+    password: req.body.password
   }).save(function(err, doc) {
     if (err) {
       console.log(err);
       res.status(500).json({err: err.message});
       return;
     }
-    res.status(200).json({success: true});
+    res.status(200).json({success: true, doc: doc});
   })
 })
 
 // GET request to Documents List
-app.get('/document', function(req, res) {
-  Document.find({}, (err, doc) => {
+app.get('/documents', function(req, res) {
+  Document.find({collaborators: {$in: [req.user]}}, (err, documents) => {
     if (err) res.status(500).end(err.message)
-    else res.json(doc)
+    else res.json(documents)
   });
 });
 
@@ -145,10 +143,18 @@ app.get('/document/:id', function(req, res) {
 
 // saving and editing the document's content
 app.post('/save', function(req, res){
-Document.update({ _id: id }, { $set: { content: 'updated' }}, (err, result) => {
-  if (err) res.status(500).end(err.message)
-  else res.json(result)
+Document.update({ _id: req.body.id }, { $set: { content: req.body.newContent }}, (err, result) => {
+  if (err) {
+    res.json({success: false});
+  } else res.json({success: true})
 })
+});
+
+
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
 
 

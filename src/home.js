@@ -14,8 +14,29 @@ import {Panel} from 'react-bootstrap';
 export default class Home extends React.Component {
   constructor (props) {
     super(props)
-  }
+    this.state = {
+      documents: []
+    };
+  };
+
+  componentDidMount() {
+    fetch('http:localhost:3000/documents', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'same-origin',
+    }).then(res => res.json())
+      .then(res => {
+        console.log(res);
+        this.setState({documents: res})
+      })
+        .catch(err => console.log('Error ', err));
+  };
+
+
   render() {
+    console.log(this.state.documents);
     return (
       <div className="filespage">
       <HomeBar redirect={this.props.redirect} />
@@ -25,17 +46,12 @@ export default class Home extends React.Component {
       <Panel.Heading>
         <Panel.Title componentClass="h3">folders
           <div className="docbuttons">
-          <button onMouseDown={() => this.props.redirect('Document')}>Create doc</button>
+          <button onMouseDown={() => this.props.redirect('CreateDocument')}>Create doc</button>
           <button>add existing doc</button>
           </div>
         </Panel.Title>
       </Panel.Heading>
-      <Panel.Body>File1.doc</Panel.Body>
-      <Panel.Body>File2.doc</Panel.Body>
-      <Panel.Body>File3.doc</Panel.Body>
-      <Panel.Body>File4.doc</Panel.Body>
-      <Panel.Body>File5.doc</Panel.Body>
-      <Panel.Body>File6.doc</Panel.Body>
+      {this.state.documents.map(document => <Panel.Body><button onClick={e => this.props.app.redirect("Document", {doc: document})}>Edit</button> name: {document.documentName}</Panel.Body>)}
     </Panel>
 </div>
       </div>
