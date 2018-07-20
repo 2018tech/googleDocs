@@ -2,9 +2,11 @@ var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI);
 
 var userSchema = new mongoose.Schema({
-  username: String,
+  username:
+  {type: String,
+  unique: true},
   password: String,
-  documentList: [{type: mongoose.Schema.ObjectId, ref: 'Document'}]
+  documentList: [{type: mongoose.Schema.ObjectId, ref: 'Document'}],
 });
 
 var documentSchema = new mongoose.Schema({

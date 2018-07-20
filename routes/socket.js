@@ -1,3 +1,5 @@
+import models from '.././models/./models.js';
+const Document = models.Document;
   /**
    * @file enable Socket.io and collaborative editing.
    */
@@ -16,12 +18,21 @@
    });
 
    socket.on('syncDocument', (data, next) => {
-     socket.to(data.docId).emit('syncDocument', data)
-   })
+     Document.findByIdAndUpdate(data.docId, {content: data.rawState})
+       .then(doc => {
+         socket.to(data.docId).emit('syncDocument', data)
+       })
+     })
 
-   socket.on('closeDocument', (data, next) => {
-     socket.leave(data.docId)
-     next({err: null})
-   })
-    })
-  }
+     socket.on('closeDocument', (data, next) => {
+       socket.leave(data.docId)
+       next({err: null})
+     })
+ })}
+
+
+
+
+   //socket.to ==emits it to a room;
+   //socket.on===listening to things like syncDocument
+   //socket.emit just triggers a event
