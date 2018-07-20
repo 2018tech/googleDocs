@@ -12,6 +12,7 @@ import ColorPicker, {colorPickerPlugin} from 'draft-js-color-picker';
 import HomeBar from './homebar.js';
 import io from 'socket.io-client';
 
+//socket = this server is connected to the socket!
 const socket = io('http://localhost:3000');
 
 const styleMap = {
@@ -59,6 +60,11 @@ export default class Document extends React.Component {
         })
       });
     }
+//when a client types, fire sync document, passing in the document id and the new state
+//server looks for the document with that id, and updates the document with the new state.
+//server fires sync doc gives the new state back to the client.
+//client updates the state of the editor with the new state
+
     if(props.options.doc.content === '') this.state.editorState = EditorState.createEmpty();
     else {
       this.state.editorState = EditorState.createWithContent(convertFromRaw(JSON.parse(props.options.doc.content)));
@@ -127,6 +133,11 @@ export default class Document extends React.Component {
       socket.on('syncDocument', this.remoteStateChange)
     });
   };
+
+
+//socket.emit opendocument===server! go find the document with the id
+//server finds the document; server emits syndocument with the document found
+//client receives the new document and updates the state with the new document
 
   render() {
     const {editorState} = this.state;

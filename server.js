@@ -5,27 +5,37 @@
  * @author Henry Gaskin
  * @author Anshul Nanda
  */
+
+ //express is for routing
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');
+
+//cookieparser is for cookieParser, also for sessions. bodyparser is for accecssing things in the INPUT field
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+
+
+//getting passport stuff before accessing the database
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+
+//right after we connect to mongoose, we connect to the database
+//the next two lines represent just that
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI);
-var auth = require("./routes/auth");
-var api = require("./routes/api");
 
+//require the authentication backend
+var auth = require("./routes/auth");
+//require socketio
 import socketIO from 'socket.io';
 import http from 'http';
 import socketApi from './routes/socket';
-
+//grab our mongoose models
 var User = require('./models/models').User;
 var Document = require('./models/models').Document;
 
-// var routes = require('./routes/index');
 
 var app = express();
 const server = http.Server(app);
@@ -41,7 +51,8 @@ app.use(session({ secret: 'keyboard cat' }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-
+//first thing we have on our backend is the passport setup.
+//it uses localstrategy, then serialize user, then deserialize user
 passport.serializeUser(function(user, done) {
   done(null, user._id);
 });
@@ -79,29 +90,12 @@ passport.use(new LocalStrategy(function(username, password, done) {
   }
 ));
 
-
+//after deserializing our user, we use auth.js file.
+//usually after app.use comes function(), but in this case, that function is auth(passport)
+//whenever we do module.exports=function(passport), that's filename(input)
+//so in this case, it's auth(passport). auth is the file name and passport is the input
 app.use(auth(passport))
-app.use(api)
 
-
-
-// app.use('/', routes(passport));
-// app.use('/', auth(passport));
-
-// catch 404 and forward to error handler
-
-
-// development error handler
-// will print stacktrace
-// if (app.get('env') === 'development') {
-//   app.use(function(err, req, res, next) {
-//     res.status(err.status || 500);
-//     res.render('error', {
-//       message: err.message,
-//       error: err
-//     });
-//   });
-// }
 
 // production error handler
 // no stacktraces leaked to user
@@ -113,14 +107,16 @@ app.use(function(err, req, res, next) {
   });
 });
 
+
+//BACKEND ROUTES START HERE!!!!!
 // Create new document
 app.post('/create', function(req, res) {
   new Document({
     documentName: req.body.documentName, //in the form's input, need to put its name as documentName
-    owner: req.user,
-    content: '',
-    collaborators: [req.user],
-    password: req.body.password
+    owner: req.user, //req.user is produced from the passport when it deserializes
+    content: '', //content is empty when it starts
+    collaborators: [req.user], //yourself is automatically inserted as a collaborator when you start a document
+    password: req.body.password //in the form's input, need to put its name as password
   }).save(function(err, doc) {
     if (err) {
       console.log(err);
@@ -131,7 +127,7 @@ app.post('/create', function(req, res) {
   })
 })
 
-// GET request to Documents List
+// this is going to GET all the document where the user is a collaborator
 app.get('/documents', function(req, res) {
   Document.find({collaborators: {$in: [req.user]}}, (err, documents) => {
     if (err) res.status(500).end(err.message)
@@ -149,6 +145,7 @@ app.get('/document/:id', function(req, res) {
 });
 
 // saving and editing the document's content
+//how does it get req.body.id?????
 app.post('/save', function(req, res){
 Document.update({ _id: req.body.id }, { $set: { content: req.body.newContent }}, (err, result) => {
   if (err) {

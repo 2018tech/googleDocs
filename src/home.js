@@ -34,7 +34,6 @@ export default class Home extends React.Component {
         .catch(err => console.log('Error ', err));
   };
 
-
   render() {
     console.log(this.state.documents);
     return (
@@ -58,3 +57,4 @@ export default class Home extends React.Component {
     );
   }
 }
+//it gets pretty confusing at {this.state.documents.map}
