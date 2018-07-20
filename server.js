@@ -135,6 +135,20 @@ app.get('/documents', function(req, res) {
   });
 });
 
+app.get('/joindocument', function(req, res) {
+  Document.findById(req.query.id, (err, doc) => {
+    if (err) res.status(500).end(err.message)
+    else {
+    doc.collaborators.push(req.user)}
+    doc.save(err => {
+      Document.find({collaborators: {$in: [req.user]}}, (err, documents) => {
+        if (err) res.status(500).end(err.message)
+        else res.json(documents)
+      });
+    })
+  })
+});
+
 
 // GET request for individual document from documents list (by doc:id)
 app.get('/document/:id', function(req, res) {

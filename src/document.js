@@ -52,6 +52,11 @@ export default class Document extends React.Component {
     this.state = {
       documentName: props.options.doc.title
     };
+
+
+
+
+//그냥 다큐먼트에 뭐 쓸때마다
     this.onChange = (editorState) => {
       this.setState({editorState}, () => {
         socket.emit('syncDocument', {
@@ -60,6 +65,13 @@ export default class Document extends React.Component {
         })
       });
     }
+
+//first parameter is the name of the event!!!!
+//second parameter to emit is data!!!!!
+//so io.emit('cool', 'hi iam jon')
+// io.on('cool', function(data) and data in this case is the string 'hi iam jon')
+
+
 //when a client types, fire sync document, passing in the document id and the new state
 //server looks for the document with that id, and updates the document with the new state.
 //server fires sync doc gives the new state back to the client.
@@ -124,13 +136,22 @@ export default class Document extends React.Component {
   };
 
   remoteStateChange(res) {
-    debugger;
     this.setState({editorState: EditorState.createWithContent(convertFromRaw(res.rawState))});
   }
 
+  // onShare(e) {
+  //   this.setState({
+  //     userBemail:
+  //   })
+  // }
+
   componentDidMount() {
+    //below is created first
+    //set up 'on's before emits
+    //emit is when you are starting the event
     socket.emit('openDocument', {docId: this.props.options.doc._id}, () => {
       socket.on('syncDocument', this.remoteStateChange)
+
     });
   };
 

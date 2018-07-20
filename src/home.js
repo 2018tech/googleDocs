@@ -9,7 +9,7 @@
 
 import React from 'react';
 import HomeBar from './homebar.js';
-import {Panel} from 'react-bootstrap';
+import {Panel, Button} from 'react-bootstrap';
 
 export default class Home extends React.Component {
   constructor (props) {
@@ -34,6 +34,27 @@ export default class Home extends React.Component {
         .catch(err => console.log('Error ', err));
   };
 
+  sharedid(value) {
+      this.setState({
+        sharedid: value
+      })
+  }
+
+  onJoin() {
+    fetch('http:localhost:3000/joindocument?id=' + this.state.sharedid, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'same-origin',
+    }).then(res => res.json())
+      .then(res => {
+        console.log(res);
+        this.setState({documents: res})
+      })
+        .catch(err => console.log('Error ', err));
+  }
+
   render() {
     console.log(this.state.documents);
     return (
@@ -45,12 +66,13 @@ export default class Home extends React.Component {
       <Panel.Heading>
         <Panel.Title componentClass="h3">folders
           <div className="docbuttons">
-          <button onMouseDown={() => this.props.redirect('CreateDocument')}>Create doc</button>
-          <button>add existing doc</button>
+          <Button onMouseDown={() => this.props.redirect('CreateDocument')}>Create doc</Button>
+          <Button>add existing doc</Button>
           </div>
         </Panel.Title>
+        <input onChange={e=> this.sharedid(e.target.value)}/><Button onClick = {e => this.onJoin()}>Join</Button>
       </Panel.Heading>
-      {this.state.documents.map(document => <Panel.Body><button onClick={e => this.props.app.redirect("Document", {doc: document})}>Edit</button> name: {document.documentName}</Panel.Body>)}
+      {this.state.documents.map(document => <Panel.Body><button onClick={e => this.props.app.redirect("Document", {doc: document})}>Edit</button> name: {document.documentName} ID: {document._id}</Panel.Body>)}
     </Panel>
 </div>
       </div>
