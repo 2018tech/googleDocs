@@ -1,14 +1,44 @@
 .documenteditor {
   text-align: left;
   display: flex;
-
-
   padding-left: 100px;
 
 }
-.docbuttons{
-  text-align: right;
+.panel-heading{
+  background-color: navy;
+  display: flex;
+  align-items: center;
 }
+.panel-title{
+  justify-content: flex-end;
+}
+.navbar.navbar-default {
+  display: flex;
+}
+.alignleft {
+  color: black;
+  padding-right: 30px;
+}
+.foldershead {
+  justify-content: flex-start;
+}
+.space {
+  padding-right: 10px;
+}
+.buttonfile{
+  padding-right: 10px;
+  justify-content: flex-end;
+
+}
+.panel-body {
+  display: flex;
+  border: solid blue 1px;
+  justify-content: flex-end;
+  align-items: center;
+
+}
+
+
 .formbox{
   display: flex;
   justify-content: center;

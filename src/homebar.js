@@ -1,5 +1,5 @@
 import React from 'react';
-import {Navbar} from 'react-bootstrap';
+import {Navbar, Button} from 'react-bootstrap';
 
 export default class HomeBar extends React.Component {
   render() {
@@ -9,8 +9,8 @@ export default class HomeBar extends React.Component {
         <Navbar>
       <Navbar.Header>
       <Navbar.Brand>
-        <a href="./document.js">  <img className='homeimage' src ="https://images.hired.com/companies/19279/logos/1459450238/offer.png" /></a>
-        <a>Google Docs</a>
+        <a> <img className='homeimage' src ="https://images.hired.com/companies/19279/logos/1459450238/offer.png" /></a>
+        <em>Google Docs</em>
       </Navbar.Brand>
       <Navbar.Toggle />
       </Navbar.Header>
@@ -18,7 +18,7 @@ export default class HomeBar extends React.Component {
       <Navbar.Text>
         Signed in as: <Navbar.Link href="/">Henry Gaskin</Navbar.Link>
       </Navbar.Text>
-      <Navbar.Text pullRight> <a href="/" >Log Out</a></Navbar.Text>
+      <Navbar.Text pullRight> <Button>Log Out</Button></Navbar.Text>
       </Navbar.Collapse>
       </Navbar>
 
