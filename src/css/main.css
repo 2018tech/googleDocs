@@ -1,10 +1,7 @@
 .documenteditor {
   text-align: left;
   display: flex;
-
-
   padding-left: 100px;
-
 }
 .docbuttons{
   text-align: right;
@@ -12,7 +9,6 @@
 .formbox{
   display: flex;
   justify-content: center;
-
 }
 .loginform{
   background-color: white;
@@ -33,11 +29,18 @@
   background-color: blue;
   color: white;
   text-align: center;
-
 }
 .homebar {
-  text-align: center;
+  text-align: right;
+  color: blue;
+  font-weight: bold;
+  font-family: garamond
 }
+
+.registerbutton {
+  text-align: right;
+}
+
 .material-icons {
 align-self: center;
 }
@@ -76,7 +79,4 @@ padding-right: 10px;
 
 .entire {
 padding-bottom: 20px;
-
-
-
 }

@@ -48,7 +48,7 @@ export default class Login extends React.Component {
           case 200:
             console.log(res);
             console.log('User validated: ', this.state.username);
-            this.props.app.setState({currentPage: "Home"})
+            this.props.app.setState({currentPage: "ItemList"})
             break;
           default:
             console.log(res.status);

@@ -1,11 +1,3 @@
-/**
- * @file handles routes for opening/saving/editing documents, and passport authentication.
- * @author Raj Kane
- * @author Jon Lee
- * @author Henry Gaskin
- * @author Anshul Nanda
- */
-
  //express is for routing
 var express = require('express');
 var path = require('path');
@@ -148,7 +140,7 @@ app.get('/joindocument', function(req, res) {
     })
   })
 });
-
+//$in is when you have collabortors, if this user is in this array of collaborators, then return it 
 
 // GET request for individual document from documents list (by doc:id)
 app.get('/document/:id', function(req, res) {

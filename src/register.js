@@ -1,5 +1,5 @@
 import React from 'react';
-import HomeBar from './homebar.js';
+import HomeBarRegister from './homebarregister.js';
 import {Panel} from 'react-bootstrap';
 
 export default class Register extends React.Component {
@@ -52,7 +52,7 @@ export default class Register extends React.Component {
   render() {
     return (
       <div className="filespage">
-      <HomeBar redirect={this.props.redirect} />
+      <HomeBarRegister redirect={this.props.redirect} />
       <h2 className="documenteditor">Register</h2>
       <div className="formbox">
         <form>

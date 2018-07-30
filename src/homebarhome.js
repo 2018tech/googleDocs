@@ -9,7 +9,7 @@
 import React from 'react';
 import {Navbar} from 'react-bootstrap';
 
-export default class HomeBar extends React.Component {
+export default class HomeBarHome extends React.Component {
 
   onLogout(e) {
     fetch('http://localhost:3000/logout', {
@@ -46,15 +46,15 @@ export default class HomeBar extends React.Component {
       </Navbar.Header>
       <Navbar.Collapse>
       {/* <Navbar.Text>
-        Signed in as: <Navbar.Link href="/">User</Navbar.Link>
+        Signed in as: {req.user}
       </Navbar.Text> */}
-      {/* <Navbar.Text pullRight> <button onClick={e => this.onLogout(e)} >Log Out</button></Navbar.Text> */}
+      <Navbar.Text pullRight> <button onClick={e => this.onLogout(e)} >Log Out</button></Navbar.Text>
       </Navbar.Collapse>
       </Navbar>
 
         <div>
-          <div className="homebar">Haven't registered yet? Let's get you started!</div>
-          <div className="registerbutton"><button onClick={() => this.props.redirect('Register')}>Register</button></div>
+          {/* <div className="homebar">Haven't registered yet? Let's get you started!</div>
+          <div className="registerbutton"><button onClick={() => this.props.redirect('Register')}>Register</button></div> */}
           {/* <button onClick={() => this.props.redirect('Login')}>Login</button> */}
           {/* <button className="homebarhome" onClick={() => this.props.redirect('Home')}>Folders</button> */}
           {/* <button onClick={() => this.props.redirect('Document')}>Document</button> */}

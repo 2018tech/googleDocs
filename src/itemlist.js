@@ -11,7 +11,7 @@ import React from 'react';
 import HomeBarHome from './homebarhome.js';
 import {Panel, Button} from 'react-bootstrap';
 
-export default class Home extends React.Component {
+export default class ItemList extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -63,7 +63,7 @@ export default class Home extends React.Component {
     console.log(this.state.documents);
     return (
       <div className="filespage">
-      <HomeBarHome redirect={this.props.redirect} />
+      <HomeBarHome redirect={this.props.redirect}/>
       <h2 className="documenteditor">Files</h2>
       <div className="filestable">
         <Panel bsStyle="info">

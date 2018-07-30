@@ -12,6 +12,7 @@ import Home from './home.js';
 import Login from './login.js';
 import Register from './register.js';
 import CreateDocument from './CreateDocument.jsx';
+import ItemList from './itemlist.js';
 
 export default class App extends React.Component {
   /**
@@ -19,7 +20,7 @@ export default class App extends React.Component {
    */
   constructor(props) {
     super(props);
-    this.state = {currentPage: "Register"};
+    this.state = {currentPage: "Login"};
     this.redirect = this.redirect.bind(this);
   };
 //page is like 'Home'
@@ -51,7 +52,7 @@ export default class App extends React.Component {
         {this.state.currentPage === 'Home' ? <Home redirect={this.redirect} app={this}/>: null}
         {this.state.currentPage === "Document" ? <Document options={this.state.options} redirect={this.redirect} app={this}/>: null}
         {this.state.currentPage === 'CreateDocument' ? <CreateDocument redirect={this.redirect} app={this}/> : null}
-
+        {this.state.currentPage === 'ItemList' ? <ItemList redirect={this.redirect} app={this}/> : null}
       </div>
     );
   }
